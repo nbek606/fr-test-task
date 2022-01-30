@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <BasePage>
     <SurveyCreate />
-  </div>
+  </BasePage>
 </template>

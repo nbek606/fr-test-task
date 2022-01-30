@@ -1,5 +1,5 @@
 <template>
-  <BasePage>
+  <div>
     <div class="tab">
       <div
         class="tab__item"
@@ -20,7 +20,7 @@
         :is="item.component"
       />
     </div>
-  </BasePage>
+  </div>
 </template>
 <script>
 

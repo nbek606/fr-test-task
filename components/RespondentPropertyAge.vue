@@ -1,8 +1,8 @@
 <template>
   <div
     class="age"
-    v-if="!isEmpty"
   >
+    <div v-if="!isEmpty"> 
       <div 
         v-for="(item, index ) in properties"
         :key="index"
@@ -17,6 +17,14 @@
           </div>
       </div>
     </div>
+
+    <button 
+      class="button button__add"
+      @click="addProperty"
+    >
+      + Добавить диапазон
+    </button>
+  </div>
 </template>
 <script>
 export default {
@@ -27,9 +35,25 @@ export default {
       required: true
     }
   },
+  data () {
+    return {
+      increment: 1
+    }
+  },
   computed: {
     isEmpty () {
       return this.properties?.length == 0
+    }
+  },
+  methods: {
+    addProperty () {
+      this.$emit('add-property', {
+          name: `Диапазон ${this.increment}`,
+          after: null,
+          before: null
+      })
+
+      this.increment++
     }
   }
 }

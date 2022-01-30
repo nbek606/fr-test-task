@@ -1,31 +1,38 @@
 <template>
   <div 
     class="type__card"
-    v-if="!isEmpty"
   >
-    <div 
-      class="type__card__item"
-      v-for="(property, index) in properties"
-      :key="index"
-    >
-      <div class="type__card__item-title">
-          {{ property.name }}
-      </div>
-    
-      <select
-        v-model="property.type"
-        class="type__card__item-select"
+    <div >
+      <div 
+        class="type__card__item"
+        v-for="(property, index) in properties"
+        :key="index"
       >
-        <option
-          v-for="(item, index) in typeCards"
-          :key="index"
-          :selected="item.value == property.type"
-          :value="item.value"
+        <div class="type__card__item-title">
+            {{ property.name }}
+        </div>
+      
+        <select
+          v-model="property.type"
+          class="type__card__item-select"
         >
-          {{ item.text }}
-        </option>
-      </select>
+          <option
+            v-for="(item, index) in typeCards"
+            :key="index"
+            :selected="item.value == property.type"
+            :value="item.value"
+          >
+            {{ item.text }}
+          </option>
+        </select>
+      </div>
     </div>
+    <button 
+      class="button button__add"
+      @click="addProperty"
+    >
+      + Добавить тип
+    </button>
   </div>
 </template>
 <script>
@@ -37,13 +44,16 @@ export default {
       required: true
     }
   },
+  
   computed: {
     isEmpty () {
       return this.properties?.length == 0
     }
   },
+
   data () {
     return {
+      increment: 1,
       typeCardValue: this.properties.type,
       typeCards: [
         {
@@ -64,7 +74,18 @@ export default {
         }
       ]
     }
-  }
+  },
+
+  methods: {
+    addProperty () {
+      this.$emit('add-property', {
+         name: `Тип ${this.increment}`,
+         type: null
+      })
+
+      this.increment++
+    }
+  },
 }
 </script>
 <style lang="scss" scoped>
